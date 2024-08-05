@@ -68,7 +68,7 @@ let idGlobal = 3; // creando manualmente tres notas
 
 notas.push({ id: 1, titulo: "Nota 1", texto: "Texto de la nota 1", realizada: false });
 notas.push({ id: 2, titulo: "Nota 2", texto: "Texto de la nota 2", realizada: false });
-otas.push({ id: 3, titulo: "Nota 3", texto: "Texto de la nota 3", realizada: false });
+notas.push({ id: 3, titulo: "Nota 3", texto: "Texto de la nota 3", realizada: false });
 
 
 
