@@ -50,7 +50,7 @@
 <div class="container mt-5">
         <h2 class="text-center">Aplicación de Notas</h2>
     
-      
+        <!-- Interfaz para crear nuevas notas -->
         <div class="mb-4">
             <input type="text" id="noteTitle" class="form-control mb-2" placeholder="Título de la nota">
             <textarea id="noteText" class="form-control mb-2" rows="3" placeholder="Texto de la nota"></textarea>
@@ -58,7 +58,16 @@
             <button id="clearFieldsBtn" class="btn btn-secondary">Limpiar Campos</button>
         </div>
     
-      
+        <!-- Inputs para filtros -->
+        <div class="mb-4">
+            <input type="text" id="searchText" class="form-control mb-2" placeholder="Buscar por texto">
+            <div class="form-check">
+                <input type="checkbox" class="form-check-input" id="filterCompleted">
+                <label class="form-check-label" for="filterCompleted">Mostrar solo completadas</label>
+            </div>
+        </div>
+    
+        <!-- Contenedor de las notas -->
         <div id="notesContainer" class="row"></div>
     </div>
     

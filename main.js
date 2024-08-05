@@ -59,17 +59,19 @@
 // Ejerccio 3: aplicacion de notas
 
 
-// Array para guardar las notas
+
 let notas = [];
 
-// Variable para controlar el ID global de las notas
-let idGlobal = 2; // Suponiendo que hemos creado manualmente dos notas
 
-// Notas de prueba
+let idGlobal = 3; // creando manualmente tres notas
+
+
 notas.push({ id: 1, titulo: "Nota 1", texto: "Texto de la nota 1", realizada: false });
 notas.push({ id: 2, titulo: "Nota 2", texto: "Texto de la nota 2", realizada: false });
+otas.push({ id: 3, titulo: "Nota 3", texto: "Texto de la nota 3", realizada: false });
 
-// Función para pintar las notas
+
+
 function pintarNotas() {
     const notesContainer = document.getElementById('notesContainer');
     notesContainer.innerHTML = '';
@@ -81,12 +83,12 @@ function pintarNotas() {
 
     notas.forEach(nota => {
         const notaCard = `
-            <div class="col-md-4 mb-3">
+            <div class="col-md-4 note-card">
                 <div class="card">
                     <div class="card-body">
+                        <input onClick="marcarRealizada(${nota.id})" type="checkbox" ${nota.realizada ? "checked" : ""}>
                         <h5 class="card-title">${nota.titulo}</h5>
                         <p class="card-text">${nota.texto}</p>
-                        <input onClick="marcarRealizada(${nota.id})" type="checkbox" ${nota.realizada ? "checked" : ""}>
                         <button class="btn btn-danger mt-2" onClick="borrarNota(${nota.id})">Borrar Nota</button>
                     </div>
                 </div>
@@ -141,6 +143,63 @@ document.getElementById('clearFieldsBtn').addEventListener('click', function() {
     document.getElementById('noteTitle').value = '';
     document.getElementById('noteText').value = '';
 });
+
+// Evento para buscar notas por texto
+document.getElementById('searchText').addEventListener('input', function() {
+    const searchText = document.getElementById('searchText').value.toLowerCase();
+    pintarNotasFiltradas();
+});
+
+// Evento para filtrar notas completadas
+document.getElementById('filterCompleted').addEventListener('change', function() {
+    pintarNotasFiltradas();
+});
+
+// Función para filtrar notas por estado de realización
+function filtrarPorRealizada(array) {
+    const filterCompleted = document.getElementById('filterCompleted').checked;
+    if (filterCompleted) {
+        return array.filter(nota => nota.realizada);
+    }
+    return array;
+}
+
+// Función para filtrar notas por texto
+function filtrarPorTexto(array) {
+    const searchText = document.getElementById('searchText').value.toLowerCase();
+    if (searchText !== '') {
+        return array.filter(nota => nota.titulo.toLowerCase().includes(searchText) || nota.texto.toLowerCase().includes(searchText));
+    }
+    return array;
+}
+
+// Función para pintar notas filtradas
+function pintarNotasFiltradas() {
+    const filteredNotas = filtrarPorRealizada(filtrarPorTexto(notas));
+    const notesContainer = document.getElementById('notesContainer');
+    notesContainer.innerHTML = '';
+
+    if (filteredNotas.length === 0) {
+        notesContainer.innerHTML = '<p class="text-center">NO HAY NOTAS PARA MOSTRAR</p>';
+        return;
+    }
+
+    filteredNotas.forEach(nota => {
+        const notaCard = `
+            <div class="col-md-4 note-card">
+                <div class="card">
+                    <div class="card-body">
+                        <input onClick="marcarRealizada(${nota.id})" type="checkbox" ${nota.realizada ? "checked" : ""}>
+                        <h5 class="card-title">${nota.titulo}</h5>
+                        <p class="card-text">${nota.texto}</p>
+                        <button class="btn btn-danger mt-2" onClick="borrarNota(${nota.id})">Borrar Nota</button>
+                    </div>
+                </div>
+            </div>
+        `;
+        notesContainer.innerHTML += notaCard;
+    });
+}
 
 // Inicializar la pantalla con las notas de prueba
 document.addEventListener('DOMContentLoaded', pintarNotas);
