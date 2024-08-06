@@ -86,9 +86,9 @@ function pintarNotas() {
             <div class="col-md-4 note-card">
                 <div class="card">
                     <div class="card-body">
-                        <input onClick="marcarRealizada(${nota.id})" type="checkbox" ${nota.realizada ? "checked" : ""}>
+                        <input onClick="marcarRealizada(${nota.id})" type="checkbox" ${nota.realizada ? "checked": ""}>
                         <h5 class="card-title">${nota.titulo}</h5>
-                        <p class="card-text">${nota.texto}</p>
+                        <p class="card-text ${nota?.realizada ? "text-decoration-line-through":""} ">${nota.texto}</p>
                         <button class="btn btn-danger mt-2" onClick="borrarNota(${nota.id})">Borrar Nota</button>
                     </div>
                 </div>
@@ -185,13 +185,14 @@ function pintarNotasFiltradas() {
     }
 
     filteredNotas.forEach(nota => {
+
         const notaCard = `
             <div class="col-md-4 note-card">
                 <div class="card">
                     <div class="card-body">
-                        <input onClick="marcarRealizada(${nota.id})" type="checkbox" ${nota.realizada ? "checked" : ""}>
+                        <input onClick="marcarRealizada(${nota.id})" type="checkbox" ${nota.realizada? "checked": ""}>
                         <h5 class="card-title">${nota.titulo}</h5>
-                        <p class="card-text">${nota.texto}</p>
+                        <p class="card-text text-decoration-line-through">${nota.texto}</p>
                         <button class="btn btn-danger mt-2" onClick="borrarNota(${nota.id})">Borrar Nota</button>
                     </div>
                 </div>
